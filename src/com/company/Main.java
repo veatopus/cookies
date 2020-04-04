@@ -8,6 +8,7 @@ public class Main {
     private static int positionPoint = 1;
     private static int cookies = 1;
     private static Scanner s = new Scanner(System.in);
+
     public static int getCookies() {
         return cookies;
     }
@@ -16,20 +17,20 @@ public class Main {
         Main.cookies = cookies;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Bank bank = new Bank();
-        while (true){
+        while (true) {
             System.out.println("введтье номер действия которое хотите совершить");
             System.out.println("1. Поднять заработок");
             System.out.println("2. Работать");
             System.out.println("3. сыграть в кости");
-            System.out.println("4. снять деньги с банка");
-            System.out.println("5. положить деньги на счет в банке");
+            System.out.println("4. снять печеньки с банка");
+            System.out.println("5. положить печеньки на счет в банке");
             System.out.println("6. посмотреть сколько у меня печенек");
 
             int userChoice = s.nextInt();
 
-            if (userChoice > 6 || userChoice <=0){
+            if (userChoice > 6 || userChoice <= 0) {
                 try {
                     throw new WrongNumberException("Введенное число не соответствует правилам");
                 } catch (WrongNumberException e) {
@@ -37,7 +38,7 @@ public class Main {
                 }
             }
 
-            switch (userChoice){
+            switch (userChoice) {
                 case 1:
                     promotion();
                     break;
@@ -48,13 +49,23 @@ public class Main {
                     gameOfDice();
                     break;
                 case 4:
+                    System.out.println("в банке сейчас " + bank.getInternalStorage() + " печенек");
                     System.out.println("введите сумму которую хотите снять");
                     int sum = s.nextInt();
                     setCookies(getCookies() + bank.cookieRemoval(sum));
+                    break;
                 case 5:
+                    System.out.println("в банке сейчас " + bank.getInternalStorage() + " печенек");
                     System.out.println("введите сумму которую хотите положить на счет");
                     sum = s.nextInt();
-                    bank.deposit(sum);
+                    if (sum > getCookies()) {
+                        try {
+                            throw new WrongNumberException();
+                        } catch (WrongNumberException e) {
+                            System.err.println("У вас нет столько печенек");
+                        }
+                    } else
+                        bank.deposit(sum);
                     break;
                 case 6:
                     System.out.println("Остаток на счете = " + getCookies());
@@ -67,7 +78,7 @@ public class Main {
     public static void gameOfDice() {
         System.out.println("введите ставку");
         int rate = s.nextInt();
-        if (rate > getCookies()){
+        if (rate > getCookies()) {
             try {
                 throw new WrongNumberException();
             } catch (WrongNumberException e) {
@@ -97,7 +108,7 @@ public class Main {
     }
 
     public static void work() {
-       setCookies(getCookies() + (100 * jobPosition));
+        setCookies(getCookies() + (100 * jobPosition));
     }
 
     public static void promotion() {

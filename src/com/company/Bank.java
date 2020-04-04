@@ -11,8 +11,8 @@ public class Bank {
         this.internalStorage += internalStorage;
     }
 
-    public int cookieRemoval (int sum){
-        if (internalStorage < sum || sum < 0){
+    public int cookieRemoval(int sum) {
+        if (internalStorage < sum || sum < 0) {
             try {
                 System.err.println("Внимание! печенечная недостаточность!");
                 throw new CookieWithdrawalException("введенная сумма меньше чем остаток на счете. " +
@@ -20,8 +20,10 @@ public class Bank {
             } catch (CookieWithdrawalException e) {
                 e.printStackTrace();
             }
+            return 0;
+        } else {
+            internalStorage -= sum;
+            return sum;
         }
-        internalStorage -= sum;
-        return sum;
     }
 }
