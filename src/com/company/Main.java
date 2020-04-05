@@ -9,7 +9,7 @@ public class Main {
     private static Bank bank = new Bank();
     private static Playground playground = new Playground();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         for (int i = 0; i < 10; i++) {
 
